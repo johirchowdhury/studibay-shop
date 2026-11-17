@@ -28,7 +28,21 @@
  <ol><li>বিকাশ অ্যাপ বা *২৪৭# ডায়াল করে <b>Send Money</b> বেছে নিন।</li><li>উপরের নম্বরটি দিন। এটি পার্সোনাল নম্বর, তাই Payment নয়, Send Money করতে হবে।</li><li>টাকার পরিমাণ: <b data-price></b> <del data-regular></del> (অফার মূল্য)</li><li>PIN দিয়ে নিশ্চিত করুন।</li><li>বিকাশের এসএমএস বা অ্যাপের ইতিহাস থেকে <b>Transaction ID (TrxID)</b> দেখে রাখুন।</li></ol>
  <div class="warn">নম্বর ভুল হলে টাকা অন্য কারও কাছে চলে যাবে। পাঠানোর আগে নম্বরটি আরেকবার মিলিয়ে নিন।</div></div>
 <div class="ostep"><h3><i>২</i>আপনার তথ্য দিন</h3>
- <div class="done" id="done"><div class="tick">✓</div><h3 style="color:var(--navy)">অর্ডার জমা হয়েছে, ধন্যবাদ!</h3><p style="color:var(--muted);margin-top:6px">আপনার Transaction ID মিলিয়ে দেখার পর ইমেইলে PDF পাঠানো হবে।</p></div>
+ <div class="done" id="done" aria-live="polite">
+  <h3>অর্ডার জমা হয়েছে</h3>
+  <dl class="done-details">
+   <div><dt>নাম</dt><dd id="doneName"></dd></div>
+   <div><dt>মোবাইল</dt><dd id="donePhone"></dd></div>
+   <div><dt>ইমেইল</dt><dd id="doneEmail"></dd></div>
+   <div><dt>TrxID</dt><dd id="doneTrx"></dd></div>
+  </dl>
+  <div class="done-actions">
+   <a class="btn" id="whatsappOrder" href="#" target="_blank" rel="noopener noreferrer">হোয়াটসঅ্যাপে অর্ডার পাঠান</a>
+   <button class="btn ghost" id="copyOrder" type="button">অর্ডারের লেখা কপি করুন</button>
+  </div>
+  <p class="done-note">পেমেন্ট মিলিয়ে দেখার পর আপনার ইমেইলে PDF পাঠানো হবে। চাইলে হোয়াটসঅ্যাপেও জানাতে পারেন।</p>
+  <p class="copy-status" id="copyOrderStatus" role="status"></p>
+ </div>
  <form id="orderForm" novalidate>
   <div class="sumline"><span>আমার প্রথম শেখার বই</span><b data-price></b></div>
   <div class="field"><label for="name">আপনার নাম</label><input id="name" name="name" autocomplete="name" required></div>

@@ -29,6 +29,39 @@
   if (!form) return;
   var msg = document.getElementById("msg"), btn = document.getElementById("submitBtn");
   function show(t, c) { msg.className = "msg " + c; msg.textContent = t; }
+  var doneFields = {
+    name: document.getElementById("doneName"),
+    phone: document.getElementById("donePhone"),
+    email: document.getElementById("doneEmail"),
+    trx: document.getElementById("doneTrx")
+  };
+  var copyOrder = document.getElementById("copyOrder");
+  var copyOrderStatus = document.getElementById("copyOrderStatus");
+  var orderText = "";
+
+  function copyOrderMessage() {
+    function report(success) {
+      copyOrderStatus.textContent = success ? "অর্ডারের লেখা কপি হয়েছে ✓" : "কপি করা যায়নি। হোয়াটসঅ্যাপ বাটনটি ব্যবহার করুন।";
+    }
+    function fallback() {
+      var textarea = document.createElement("textarea");
+      textarea.value = orderText;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      var copied = document.execCommand("copy");
+      document.body.removeChild(textarea);
+      report(copied);
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(orderText).then(function () { report(true); }, fallback);
+    } else {
+      fallback();
+    }
+  }
+  if (copyOrder) copyOrder.addEventListener("click", copyOrderMessage);
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
@@ -53,6 +86,26 @@
       .then(function (r) { return r.json(); })
       .then(function (j) {
         if (!j.ok) throw new Error(j.error || "fail");
+        doneFields.name.textContent = d.name;
+        doneFields.phone.textContent = d.phone;
+        doneFields.email.textContent = d.email;
+        doneFields.trx.textContent = d.trx;
+        orderText = [
+          "নতুন অর্ডার",
+          "পণ্য: " + d.product,
+          "নাম: " + d.name,
+          "মোবাইল: " + d.phone,
+          "ইমেইল: " + d.email,
+          "TrxID: " + d.trx,
+          "পরিমাণ: ৳" + bn(d.amount),
+          "বিকাশ নম্বর: " + S.BKASH_NUMBER
+        ].join("\n");
+        var whatsappPhone = String(S.BKASH_NUMBER).replace(/\D/g, "");
+        if (whatsappPhone.indexOf("880") !== 0) {
+          whatsappPhone = "880" + whatsappPhone.replace(/^0/, "");
+        }
+        document.getElementById("whatsappOrder").href =
+          "https://wa.me/" + whatsappPhone + "?text=" + encodeURIComponent(orderText);
         form.style.display = "none";
         document.getElementById("done").classList.add("show");
         document.getElementById("done").scrollIntoView({ behavior: "smooth", block: "center" });

@@ -111,9 +111,18 @@ pre{background:#0f1b36;color:#e7ecfa;padding:18px;border-radius:14px;overflow:au
 .msg{margin-top:14px;padding:12px 14px;border-radius:10px;font-size:16px;display:none}
 .msg.err{display:block;background:#fff1f0;border:1px solid #f6c9c4;color:#9b1c13}
 .msg.ok{display:block;background:#effaf1;border:1px solid #bfe3c8;color:#166534}
-.done{display:none;text-align:center;padding:20px 6px}
+.done{display:none;text-align:left;padding:22px 24px;border:2px solid #16845a;border-radius:14px;background:#fff}
 .done.show{display:block}
-.done .tick{width:64px;height:64px;border-radius:50%;background:#22a55b;color:#fff;font-size:34px;display:grid;place-items:center;margin:0 auto 12px}
+.done h3{font-size:22px;color:#087a55;margin-bottom:12px}
+.done-details{display:grid;gap:4px;margin-bottom:16px}
+.done-details>div{display:grid;grid-template-columns:68px minmax(0,1fr);gap:8px}
+.done-details dt{color:var(--muted)}
+.done-details dd{overflow-wrap:anywhere}
+.done-actions{display:flex;flex-wrap:wrap;gap:10px}
+.done-actions .btn{background:#1260ff;box-shadow:none;padding:12px 24px}
+.done-actions .btn.ghost{background:#fff;color:#1260ff;border-color:#1260ff}
+.done-note{margin-top:12px;color:var(--muted);font-size:14px}
+.copy-status{min-height:1.5em;color:#166534;font-size:14px}
 
 /* faq */
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
